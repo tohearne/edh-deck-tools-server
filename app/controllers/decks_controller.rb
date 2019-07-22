@@ -10,7 +10,21 @@ class DecksController < OpenReadController
 
   # GET /decks/1
   def show
-    @deck = Deck.find(id: params[:id])
+    @deck = Deck.where(id: params[:id], public: true)
+
+    render json: @deck
+  end
+
+  # GET /my-decks
+  def myIndex
+    @decks = current_user.decks.all()
+
+    render json: @decks
+  end
+
+  # GET /my-decks/1
+  def myShow
+    @deck = current_user.decks.find(id: params[:id])
 
     render json: @deck
   end
