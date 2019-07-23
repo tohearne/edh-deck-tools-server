@@ -6,7 +6,7 @@ class CardsController < ProtectedController
     @card = current_user.cards.build(card_params)
 
     if @card.save
-      render json: @card, status: :created, location: @card
+      render json: @card, status: :created
     else
       render json: @card.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class CardsController < ProtectedController
 
     # Only allow a trusted parameter "white list" through.
     def card_params
-      params.require(:card).permit(:deck_id, :is_commmander, :card_id)
+      params.require(:card).permit(:deck_id, :is_commander, :card_id)
     end
 end

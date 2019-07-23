@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_151006) do
 
   create_table "cards", force: :cascade do |t|
     t.text "card_id", null: false
-    t.boolean "is_commmander", null: false
+    t.boolean "is_commander", null: false
     t.bigint "deck_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_151006) do
   create_table "decks", force: :cascade do |t|
     t.text "title", null: false
     t.text "format", null: false
+    t.text "image"
     t.boolean "public", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false

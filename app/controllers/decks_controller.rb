@@ -10,7 +10,7 @@ class DecksController < OpenReadController
 
   # GET /decks/1
   def show
-    @deck = Deck.where(id: params[:id], public: true)
+    @deck = Deck.find(params[:id])
 
     render json: @deck
   end
@@ -62,6 +62,6 @@ class DecksController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def deck_params
-      params.require(:deck).permit(:title, :format, :public, :user_id)
+      params.require(:deck).permit(:title, :format, :image, :public, :user_id)
     end
 end
