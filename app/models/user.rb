@@ -2,5 +2,6 @@
 
 class User < ApplicationRecord
   include Authentication
-  has_many :examples
+  has_many :decks, dependent: :destroy
+  has_many :cards, through: :decks
 end

@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 2019_07_22_151006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.text "card_id", null: false
+    t.boolean "is_commander", null: false
+    t.integer "amount", null: false
+    t.bigint "deck_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deck_id"], name: "index_cards_on_deck_id"
+  end
+
+  create_table "decks", force: :cascade do |t|
+    t.text "title", null: false
+    t.text "format", null: false
+    t.text "image"
+    t.boolean "public", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_decks_on_user_id"
+  end
 
   create_table "examples", force: :cascade do |t|
     t.text "text", null: false
@@ -27,11 +48,15 @@ ActiveRecord::Schema.define(version: 2) do
     t.string "email", null: false
     t.string "token", null: false
     t.string "password_digest", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["token"], name: "index_users_on_token", unique: true
   end
 
+  add_foreign_key "cards", "decks"
+  add_foreign_key "decks", "users"
   add_foreign_key "examples", "users"
 end
