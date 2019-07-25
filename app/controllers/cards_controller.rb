@@ -17,6 +17,15 @@ class CardsController < ProtectedController
     @card.destroy
   end
 
+  # PATCH/PUT /cards/1
+  def update
+    if @card.update(card_params)
+      render json: @card
+    else
+      render json: @card.errors, status: :unprocessable_entity
+    end
+  end
+
   # # GET /cards
   # def index
   #   @cards = Card.all
@@ -29,15 +38,6 @@ class CardsController < ProtectedController
   #   render json: @card
   # end
 
-  # # PATCH/PUT /cards/1
-  # def update
-  #   if @card.update(card_params)
-  #     render json: @card
-  #   else
-  #     render json: @card.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card
@@ -46,6 +46,6 @@ class CardsController < ProtectedController
 
     # Only allow a trusted parameter "white list" through.
     def card_params
-      params.require(:card).permit(:deck_id, :is_commander, :card_id)
+      params.require(:card).permit(:deck_id, :is_commander, :amount, :card_id)
     end
 end
